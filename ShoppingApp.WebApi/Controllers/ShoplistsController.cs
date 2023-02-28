@@ -16,11 +16,14 @@ using RabbitMQ.Client;
 using System.Text;
 using ShoppingApp.Application.Features.ShoplistFeature.Commands.CompleteShoplist;
 using ShoppingApp.Application.Features.ShoplistFeature.Queries.GetShoplistById;
+using Microsoft.AspNetCore.Authorization;
+using ShoppingApp.Domain.Consts;
 
 namespace ShoppingApp.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Member")]
     public class ShoplistsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -147,9 +150,9 @@ namespace ShoppingApp.WebApi.Controllers
             int? userId = ClaimsHelper.GetClaimValueInt("nameidentifier", User);
             if (userId != null)
             {
-                request.UserId= userId;
+                request.UserId = userId;
                 IDataResult<CompleteShoplistCommandResponse> response = await _mediator.Send(request);
-                if(response.Success)
+                if (response.Success)
                 {
                     ConnectionFactory connectionFactory = new ConnectionFactory() { HostName = "localhost", UserName = "admin", Password = "123456" };
                     //Channel yaratmak için

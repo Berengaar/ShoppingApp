@@ -5,11 +5,13 @@ using ShoppingApp.Application.Features.ShoplistFeature.Commands.AddShoplist;
 using ShoppingApp.Application.Features;
 using ShoppingApp.Infrastructure.Helpers;
 using ShoppingApp.Application.Features.ProductCategoryFeature.Commands.AddProductCategory;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShoppingApp.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Member")]
     public class ProductCategoriesController : ControllerBase
     {
         private readonly IMediator _mediator;

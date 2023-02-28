@@ -12,7 +12,7 @@ namespace ShoppingApp.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize(Roles = UserRoles.Member)]
+    [Authorize(Roles = "Member")]
     public class ShoplistCategoriesController : ControllerBase
     {
         private readonly IMediator _mediator;
